@@ -49,16 +49,17 @@
                     <h3 class="text-primary">IDH.CAHAYA</h3>
                 </a>
                 <div class="navbar-nav w-100">
-                    <a href="{{route('dashboard')}}" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="{{route('dashboard')}}" class="nav-item nav-link {{ Request::segment(2) == 'dashboard' ? 'active' : '' }}"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     @if (session('level_user') == 'admin')
-                    <a href="{{route('view-admin')}}" class="nav-item nav-link active"><i class="fa fa-user me-2"></i>Admin</a>
+                    <a href="{{route('view-admin')}}" class="nav-item nav-link {{ Request::segment(2) == 'view-admin' ? 'active' : '' }}"><i class="fa fa-user me-2"></i>Admin</a>
                     @endif
-                    @if (session('level_user') == 'karyawan')
-                    <a href="{{route('view-kategori')}}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>KategoriProduk</a>
-                    <a href="{{route('view-barang')}}" class="nav-item nav-link"><i class="fa fa-laptop me-2"></i>Barang</a>
+                    @if (session('level_user') == 'karyawan' || session('level_user') == 'admin')
+                    <a href="{{route('view-kategori')}}" class="nav-item nav-link {{ Request::segment(2) == 'view-kategori' ? 'active' : '' }}"><i class="fa fa-th me-2"></i>KategoriProduk</a>
+                    <a href="{{route('view-barang')}}" class="nav-item nav-link {{ Request::segment(2) == 'view-barang' ? 'active' : '' }}"><i class="fa fa-laptop me-2"></i>Barang</a>
                     @endif
                     @if (session('level_user') == 'admin')
-                    <a href="form.html" class="nav-item nav-link"><i class="far fa-file-alt me-2"></i>Laporan Penjualan</a>
+                    <a href="{{ route('transaksi') }}" class="nav-item nav-link {{ Request::segment(2) == 'view-transaksi' ? 'active' : '' }}"><i class="fa fa-cart-plus me-2"></i>Transaksi</a>
+                    <a href="{{ route('laporan') }}" class="nav-item nav-link {{ Request::segment(2) == 'laporan' ? 'active' : '' }}"><i class="far fa-file-alt me-2"></i>Laporan Penjualan</a>
                     @endif
                 </div>
             </nav>

@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\api\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +19,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('get-snaptoken', [TransaksiController::class, 'get_snap_token'])->name('get.snaptoken');
+
+//snap token untuk checkout langsung
+Route::post('get-snaptoken-langsung', [TransaksiController::class, 'get_snap_token_langsung'])->name('get.snaptoken.langsung');
+
+Route::post('payment-handler', [PaymentController::class, 'payment_handler'])->name('payment.handler');
+

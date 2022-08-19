@@ -53,9 +53,11 @@
                     @if (session('level_user') == 'admin')
                     <a href="{{route('view-admin')}}" class="nav-item nav-link {{ Request::segment(2) == 'view-admin' ? 'active' : '' }}"><i class="fa fa-user me-2"></i>Admin</a>
                     @endif
+
                     @if (session('level_user') == 'karyawan' || session('level_user') == 'admin')
                     <a href="{{route('view-kategori')}}" class="nav-item nav-link {{ Request::segment(2) == 'view-kategori' ? 'active' : '' }}"><i class="fa fa-th me-2"></i>KategoriProduk</a>
                     <a href="{{route('view-barang')}}" class="nav-item nav-link {{ Request::segment(2) == 'view-barang' ? 'active' : '' }}"><i class="fa fa-laptop me-2"></i>Barang</a>
+
                     @endif
                     @if (session('level_user') == 'admin')
                     <a href="{{ route('transaksi') }}" class="nav-item nav-link {{ Request::segment(2) == 'view-transaksi' ? 'active' : '' }}"><i class="fa fa-cart-plus me-2"></i>Transaksi</a>

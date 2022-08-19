@@ -17,6 +17,7 @@ use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\RiwayatTransaksiController;
 use App\Http\Controllers\BeliLangsungController;
+use App\Http\Controllers\TransaksiController;
 
 
 /*
@@ -61,17 +62,22 @@ Route::group(['middleware' =>  ['web', 'auth:member']], function () {
     Route::get('quantity-tambah/{id_keranjang}/{id_barang}', [KeranjangController::class, 'qtytambah'])->name('quantity-tambah');
     Route::get('quantity-kurang/{id_keranjang}/{id_barang}', [KeranjangController::class, 'qtykurang'])->name('quantity-kurang');
     //Bayar Langsung
-    Route::get('view-belilangsung', [BeliLangsungController::class, 'viewbelilangsung'])->name('view-belilangsung');
-    Route::post('simpan-beli', [BeliLangsungController::class, 'belilangsung'])->name('simpan-beli');
-    Route::post('cek-ongkir/{id?}', [BeliLangsungController::class, 'check_ongkir'])->name('cek-ongkir');
-    Route::get('/pilih-kota/{province_id}', [BeliLangsungController::class, 'getCities'])->name('pilih-kota');
+
+    Route::get('view-belilangsung',[BeliLangsungController::class,'viewbelilangsung'])->name('view-belilangsung');
+    Route::post('simpan-beli',[BeliLangsungController::class,'belilangsung'])->name('simpan-beli');
+    Route::post('cek-ongkir/{id?}',[BeliLangsungController::class,'check_ongkir'])->name('cek-ongkir');
+    Route::get('/pilih-kota/{province_id}',[BeliLangsungController::class,'getCities'])->name('pilih-kota');
+    Route::post('send_result_midtrans_langsung',[TransaksiController::class, 'send_result_midtrans_langsung'])->name('send.result.midtrans.langsung');
     //Checkout barang
-    Route::get('checkout-barang', [CheckoutController::class, 'view_chechkout'])->name('checkout-barang');
-    Route::post('cart/{id?}', [CheckoutController::class, 'check_ongkir'])->name('cart');
-    Route::get('/cities/{province_id}', [CheckoutController::class, 'getCities'])->name('cities');
+    Route::get('checkout-barang',[CheckoutController::class,'view_chechkout'])->name('checkout-barang');
+    Route::post('cart/{id?}',[CheckoutController::class,'check_ongkir'])->name('cart');
+    Route::get('/cities/{province_id}',[CheckoutController::class,'getCities'])->name('cities');
+    Route::post('send_result_midtrans',[TransaksiController::class, 'send_result_midtrans'])->name('send.result.midtrans');
     //Riwayat Transaksi
-    Route::get('view-riwayat-transaksi', [RiwayatTransaksiController::class, 'view_riwayat_transaksi'])->name('view-riwayat-transaksi');
-    Route::get('detail-riwayat-transaksi', [RiwayatTransaksiController::class, 'detail_riwayat_transaksi'])->name('detail-riwayat-transaksi');
+    Route::get('view-riwayat-transaksi',[RiwayatTransaksiController::class,'view_riwayat_transaksi'])->name('view-riwayat-transaksi');
+    Route::get('detail-riwayat-transaksi',[RiwayatTransaksiController::class,'detail_riwayat_transaksi'])->name('detail-riwayat-transaksi');
+    Route::get('transaksi-selesai/{invoice}',[TransaksiController::class,'detail_transaksi'])->name('transaksi-selesai');
+
 });
 
 

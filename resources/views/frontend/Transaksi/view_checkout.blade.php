@@ -149,13 +149,21 @@
                                         <input type="hidden" id="input_total_belanja">
                                     </tr>
                                 </table>
-                                <button type="button" id="pay_button" class="btn btn-block btn-success my-3 py-3">Proses pembayaran</button>
+                                <button type="button" id="pay-button" class="btn btn-block btn-primary my-3 py-3">Proses Pembayaran</button>
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
+
+        <form action="{{route('send.result.midtrans')}}" method="post" id="myForm">
+            @csrf
+            <input type="hidden" name="json" id="json">
+            <input type="hidden" class="form_control" name="hasil_ongkir" id="hasil_ongkir1">
+            <input type="hidden" class="form_control" name="courier" id="courier1">
+        </form>
+
         <script>
             var id_user = {{Auth::guard('member')->user()->id}}
             $(document).ready(function(){
@@ -264,6 +272,58 @@
                     $('#input_total_belanja').val(total);
                     $('#courier1').val(pecah[1]);
             }
+        </script>
+
+        <script type="text/javascript">
+             // For example trigger on button clicked, or any time you need
+             var payButton = document.getElementById('pay-button');
+             payButton.addEventListener('click', function () {
+                // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
+                var total_belanja = $('#input_total_belanja').val();
+                var id_user = '{{Auth::user()->id}}';
+                if(total_belanja == ''){
+                    alert('Harap memilih pergiriman terlebih dahulu');
+                }
+                else
+                {
+                    $.ajax({
+                        type: "post",
+                        url: "{{route('get.snaptoken')}}",
+                        data : {
+                            total_belanja : total_belanja,
+                            id_user:id_user,
+                        },
+                        dataType : "json",
+                        success: function (response) {
+                            console.log(response)
+                            if(response.status == 'ok'){
+                                window.snap.pay(response.snaptoken, {
+                                onSuccess: function(result){
+                                    /* You may add your own implementation here */
+                                    alert("payment success!"); console.log(result);
+                                },
+                                onPending: function(result){
+                                    /* You may add your own implementation here */
+                                    alert("wating your payment!");
+                                    // alert(JSON.stringify(result));
+                                    $('#json').val(JSON.stringify(result));
+                                    $('#myForm').submit();
+
+                                },
+                                onError: function(result){
+                                    /* You may add your own implementation here */
+                                    alert("payment failed!"); console.log(result);
+                                },
+                                onClose: function(){
+                                    /* You may add your own implementation here */
+                                    alert('you closed the popup without finishing the payment');
+                                }
+                                })
+                            }
+                        }
+                    });
+                }
+             });
         </script>
         <br>
 @endsection

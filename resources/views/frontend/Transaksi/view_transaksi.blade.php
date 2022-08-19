@@ -26,60 +26,61 @@
                     </div>
 
                     <div class="checkout__order">
-                        <h6 class="font-weight-bold">Invoice :</h6>
+                        <h6 class="font-weight-bold">Invoice : {{$selesai->order_id}}</h6>
                         <br>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <h6 class="font-weight-bold">Alamat Pengiriman</h6>
-                                    <h6 class="font-weight-medium"></h6>
-                                    <h6 class="font-weight-medium"></h6>
-                                    <h6 class="font-weight-medium"></h6>
+                                    <h6 class="font-weight-medium">{{$user->nama_member}}</h6>
+                                    <h6 class="font-weight-medium">{{$user->alamat_member}}</h6>
+                                    <h6 class="font-weight-medium">{{$user->no_telepon}}</h6>
                                 </div>
 
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <h6 class="font-weight-bold">Kurir</h6>
-                                    <h6 class="font-weight-medium"></h6>
+                                    <h6 class="font-weight-medium">{{$selesai->kurir}}</h6>
                                 </div>
                             </div>
                         </div>
                     </div>
                         <div class="d-flex justify-content-between mt-2">
-                            <h5 class="font-weight-bold">Rincian Pesanan</h5>
+                            <h5 class="font-weight-bold">Rincian Barang</h5>
                             <h6 class="font-weight-bold"></h6>
                         </div>
                         <table class="table">
-
-                                <tr>
-                                    <td style="width: 70%"><img src="" alt="" style="width: 50px;"> </td>
-                                    <td><b>pcs</b> </td>
-                                    <th>:</th>
-                                    <td>Rp.</td>
-                                </tr>
-
+                                @foreach ($keranjang as $item)
+                                    <tr>
+                                        <td style="width: 70%"><img src="{{asset('gambar/'.$item->gambar)}}" alt="" style="width: 50px;"> </td>
+                                        <td><b>{{$item->qty}}pcs</b> </td>
+                                        <th>:</th>
+                                        <td>Rp.{{number_format($item->harga)}}</td>
+                                    </tr>
+                                @endforeach
                         </table>
 
                         <div class="d-flex justify-content-between mt-2">
-                            <h5 class="font-weight-bold">Rincian Pembayaran</h5>
+                            <h5 class="font-weight-bold">Rincian Pesanan</h5>
                         </div>
                             <table class="table">
                                 <tr>
-
-                                    <th style="width: 80%">Sub Total Produk</th>
-                                    <th>:</th>
-                                    <td>Rp.</td>
+                                    @foreach ($keranjang as $item)
+                                        <th style="width: 80%">Sub Total Produk</th>
+                                        <th>:</th>
+                                        <td>Rp.{{$item->total}}</td>
+                                    @endforeach
                                 </tr>
                                 <tr>
                                     <th style="width: 80%">Ongkir</th>
                                     <th>:</th>
-                                    <td >Rp.</td>
+                                    <td >Rp.{{number_format($selesai->ongkir)}}</td>
                                 </tr>
                                 <tr>
                                     <th style="width: 80%">Total belanja</th>
                                     <th>:</th>
-                                    <td >Rp.</td>
+                                    <td >Rp.{{number_format($selesai->total_bayar)}}</td>
                                 </tr>
                             </table>
 
@@ -90,21 +91,18 @@
                             <tr>
                                 <th style="width: 80%">Metode Pembayaran</th>
                                 <th>:</th>
-                                <td></td>
+                                <td>{{$selesai->payment_type}}</td>
+                            </tr>
+                            <tr>
+
+                                <th style="width: 80%">Status Pembayaran</th>
+                                @if ($selesai->transaction_status =='pending')
+                                <th>:</th>
+                                <td>Belum Melakukan Pembayaran</td>
+                                @endif
+
                             </tr>
                         </table>
-
-                        <div class="d-flex justify-content-between mt-2">
-                            <h5 class="font-weight-bold">Rincian Pengiriman Barang</h5>
-
-                        </div>
-                        <div class="table">
-                            <h5 id="no_resi"></h5>
-                            <h5 id="status"></h5>
-                            <ul class="list-group" id="history">
-
-                            </ul>
-                        </div>
                 </div>
             </div>
         </div>

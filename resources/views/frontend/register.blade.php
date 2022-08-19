@@ -57,8 +57,6 @@
                                                 @foreach ($provinces as $province =>$value)
                                                     <option value="{{$province}}">{{$value}}</option>
                                                 @endforeach
-
-
                                             </select>
                                         </div>
                                         <div class="form-group">

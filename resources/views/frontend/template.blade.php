@@ -211,6 +211,9 @@
     <!-- Footer Section End -->
 
     <!-- Js Plugins -->
+    <script async type="text/javascript"
+      src="https://app.sandbox.midtrans.com/snap/snap.js"
+      data-client-key="SB-Mid-client-QYR4W078nsRZZgzS"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="{{asset('/')}}js/jquery-3.3.1.min.js"></script>
     <script src="{{asset('/')}}js/bootstrap.min.js"></script>
@@ -221,6 +224,7 @@
     <script src="{{asset('/')}}js/owl.carousel.min.js"></script>
     <script src="{{asset('/')}}js/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script src="main.js"></script>
     {{-- <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script> --}}
     @stack('script')
 

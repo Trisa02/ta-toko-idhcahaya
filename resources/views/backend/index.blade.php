@@ -53,9 +53,10 @@
                     @if (session('level_user') == 'admin')
                     <a href="{{route('view-admin')}}" class="nav-item nav-link active"><i class="fa fa-user me-2"></i>Admin</a>
                     @endif
-                    @if (session('level_user') == 'karyawan')
+                    @if (session('level_user') == 'karyawan' || session('level_user') == 'admin' )
                     <a href="{{route('view-kategori')}}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>KategoriProduk</a>
                     <a href="{{route('view-barang')}}" class="nav-item nav-link"><i class="fa fa-laptop me-2"></i>Barang</a>
+                    <a href="#" class="nav-item nav-link"><i class="fa fa-cart-plus me-2"></i>Transaksi</a>
                     @endif
                     @if (session('level_user') == 'admin')
                     <a href="form.html" class="nav-item nav-link"><i class="far fa-file-alt me-2"></i>Laporan Penjualan</a>

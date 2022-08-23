@@ -27,18 +27,28 @@ class BarangAdminController extends Controller
 
     public function simpanbarang(Request $r){
         $Validator = Validator::make($r->all(),[
-            'nama_barang'=>'required',
+            'nama_barang'=>'required|unique:barangs,nama_barang',
             'id_kategori' => 'required',
             'stok'=>'required',
             'harga'=>'required',
             'berat'=>'required',
             'detail'=>'required',
             'gambar'=>'required'
+        ],
+        [
+            'nama_barang.required' => 'Nama Barang tidak boleh kosong',
+            'nama_barang.unique' => 'Nama Barang sudah Ada',
+            'id_kategori.required' => 'Kategori Barang tidak boleh kosong',
+            'stok.required' => 'Stok Barang tidak boleh kosong',
+            'harga.required' => 'Harga Barang tidak boleh kosong',
+            'berat.required' => 'Berat barang tidak boleh kosong',
+            'detail.required' => 'Detail Barang tidak boleh kosong',
+            'gambar.required' => 'Gambar tidak boleh kosong',
         ]);
 
         if($Validator->fails()){
             return redirect()->route('tambah-barang')
-                ->withErrors($validator)
+                ->withErrors($Validator)
                 ->withInput();
         }
         $file = $r->file('gambar');
@@ -128,7 +138,16 @@ class BarangAdminController extends Controller
     public function hapusbarang($id){
         $hapus = DB::table('barangs')->where('id_barang', $id)->delete();
         if ($hapus == TRUE) {
-            return redirect()->route('view-barang')->with('success','Data berhasil dihapus');
+           echo' <script>
+        var yakin = confirm("Yakin ingin menghapus data?");
+
+        if (yakin) {
+            window.location = "view-barang";
+        } else {
+            window.location = "view-barang";
+        }
+        </script>';
+
         }else{
             return redirect()->route('view-barang')->with('error','Data gagal dihapus');
         }

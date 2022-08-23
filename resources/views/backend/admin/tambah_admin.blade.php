@@ -4,7 +4,16 @@
         <div class="row g-4">
             <div class="col-sm-12 col-xl-6">
                 <div class="bg-light rounded h-100 p-4">
-                    <h6 class="mb-4">Tambah Kategori Barang</h6>
+                    <h6 class="mb-4">Tambah  Admin Idh.Cahaya</h6>
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                     @endif
                     <form action="{{route('save-admin')}}" enctype="multipart/form-data" method="POST">
                         @csrf
                         <div class="row mb-3">
@@ -18,6 +27,15 @@
                             <div class="col-sm-10">
                                 <input type="text" name="username" class="form-control">
                             </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="nama_kategori" class="form-label">Level</label>
+                            <select id="level_user" name="level_user" class="form-select">
+                                <option selected>Pilih Kategori...</option>
+                                @foreach ($leveladmin as $item)
+                                    <option value="{{$item->level_user}}">{{$item->level_user}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="row mb-3">
                             <label for="password" class="col-sm-4 col-form-label">Password</label>
@@ -40,4 +58,5 @@
             </div>
         </div>
     </div>
+
 @endsection

@@ -7,7 +7,15 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Laporan</h1>
+    {{-- <img src="{{asset('gambar/logo.png')}}" alt="" style="width: 8em;position: absolute;margin-top:30px;margin-left:10px"> --}}
+    <center>
+        <font size="5"><b>Laporan Penjualan IDH.Cahaya</b></font><br>
+        <font size="3"><b>Jl. Trans Sumatera Bukittinggi - Padang Sidempuan</b></font><br>
+        <font size="3"><b>Ganggo Mudiak, Kec. Bonjol, Kabupaten Pasaman, Sumatera Barat</b></font><br>
+        <font size="3"><b>Telp : +62 83193730772, Email : Idh.Cahaya@gmail.com</b></font>
+
+    </center>
+    <br>
     <table border="1" style="border-collapse: collapse; width: 100%">
         <thead>
             <tr class="text-dark text-center">

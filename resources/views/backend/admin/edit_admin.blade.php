@@ -22,6 +22,15 @@
                             <input type="text" name="username" value="{{$admin->username}}" class="form-control">
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <label for="nama_kategori" class="form-label">Level Admin</label>
+                        <select id="level_user" name="level_user" class="form-select">
+                            <option selected>Pilih Kategori...</option>
+                            @foreach ($leveladmin as $item)
+                                <option value="{{$item->level_user}}">{{$item->level_user}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <div class="row mb-3">
                         <label for="password" class="col-sm-4 col-form-label">Password</label>
                         <div class="col-sm-10">

@@ -47,9 +47,14 @@
             <div class="col-lg-9">
                 <div class="hero__search">
                     <div class="hero__search__form">
-                        <form action="#">
-                            <input type="text" placeholder="What do yo u need?">
-                            <button type="submit" class="site-btn">SEARCH</button>
+                        <form id="form" class="row g-3" method="get" action="{{route('index-frontend')}}" enctype="multipart/form-data">
+                            @csrf
+                            <div class="col-md-8">
+                                <input type="text" name="tnama" id="tnama"  placeholder="What do yo u need?">
+                            </div>
+                            <div class="col-md-4">
+                                <button type="submit" onclick="cariBarang()" id="btnCari" class="site-btn">SEARCH</button>
+                            </div>
                         </form>
                     </div>
                     <div class="hero__search__phone">
@@ -109,4 +114,26 @@
         </div>
     </div>
 </section>
+
+
+<script>
+
+    function cariBarang() {
+
+        var nama = $('#tnama').val();
+
+
+        if (nama == '') {
+            alert('Masukan Nama Produk Terlebih Dahulu !')
+        } else if (nama != '') {
+            var namabarang = nama;
+
+        } else {
+            var namabarang = nama;
+            alert('Barang yang anda cari tidak ditemukan')
+        }
+        $('#caribarang').load("/cari-barang/" + namabarang)
+    }
+
+</script>
 @endsection

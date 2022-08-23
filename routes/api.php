@@ -3,7 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\RiwayatTransaksiController;
 use App\Http\Controllers\api\PaymentController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -26,4 +28,7 @@ Route::post('get-snaptoken', [TransaksiController::class, 'get_snap_token'])->na
 Route::post('get-snaptoken-langsung', [TransaksiController::class, 'get_snap_token_langsung'])->name('get.snaptoken.langsung');
 
 Route::post('payment-handler', [PaymentController::class, 'payment_handler'])->name('payment.handler');
+
+//Lacak barang
+Route::post('lacak-barang',[RiwayatTransaksiController::class,'lacak'])->name('lacak-barang');
 

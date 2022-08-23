@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2 class="text-dark">Riwayat Transaksi</h2>
+                        <h2 class="text-dark">Detail Transaksi</h2>
                         <div class="breadcrumb__option">
                             <a href="{{route('index-frontend')}}">Home</a>
                             <a href="./index.html">Keranjang Produk</a>

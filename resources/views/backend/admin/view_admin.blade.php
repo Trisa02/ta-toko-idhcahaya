@@ -13,6 +13,7 @@
                             <th scope="col">No</th>
                             <th scope="col">Nama Admin</th>
                             <th scope="col">Username</th>
+                            <th scope="col">Level</th>
                             <th scope="col">Gambar</th>
                             <th scope="col">Action</th>
                         </tr>
@@ -23,6 +24,7 @@
                                 <td>{{$i +1}}</td>
                                 <td>{{$isi->nama_admin}}</td>
                                 <td>{{$isi->username}}</td>
+                                <td>{{$isi->level_user}}</td>
                                 <td><img src="{{asset('gambar/'. $isi->gambar)}}" width="20%" alt=""></td>
                                 <td><a href="{{route('edit-admin',$isi->id_admin)}}" class=" btn btn-warning btn-block "><i class="fa fa-edit"></i></a>
                                     <br>
@@ -34,4 +36,7 @@
             </div>
         </div>
     </div>
+    <script>
+        toastr.success('Data Berhasil Ditambahkan');
+    </script>
 @endsection

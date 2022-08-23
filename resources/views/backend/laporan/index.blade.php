@@ -60,6 +60,21 @@
                 @endif
                 </div>
                 <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="">Pilih Status Transaksi <i class="text-danger"></i></label>
+                        <select name="status" id="status" class="form-control">
+                            <option value="">-select-</option>
+                            <option value="pending">Belum Melakukan Pembayaran</option>
+                            <option value="settlement">Sudah Melakukan Pembayaran</option>
+                        </select>
+                    </div>
+                    @if (isset($_POST['lihat']))
+                        <script>
+                            document.getElementById('status').value = "{{ $_POST['status'] }}"
+                        </script>
+                    @endif
+                </div>
+                <div class="col-md-4">
                     <br>
                     <div class="d-grid gap-2">
                     <button type="submit" name="lihat" class="btn btn-primary">Lihat Data</button>
@@ -104,11 +119,13 @@ if($_POST['bulan'] != ''){
     ->join('members', 'transaksis.id', '=', 'members.id')
     ->whereMonth('transaction_time', $_POST['bulan'])
     ->whereYear('transaction_time', $_POST['tahun'])
+    ->where('transaction_status', $_POST['status'])
     ->orderBy('transaction_time', 'DESC')->get();
 }else{
     $transaction = DB::table('transaksis')
     ->join('members', 'transaksis.id', '=', 'members.id')
     ->whereYear('transaction_time', $_POST['tahun'])
+    ->where('transaction_status', $_POST['status'])
     ->orderBy('transaction_time', 'DESC')->get();
 }
 
@@ -121,6 +138,7 @@ if($_POST['bulan'] != ''){
                 @csrf
                 <input type="hidden" name="bulan" value="{{ $_POST['bulan'] }}">
                 <input type="hidden" name="tahun" value="{{ $_POST['tahun'] }}">
+                <input type="hidden" name="status" value="{{ $_POST['status'] }}">
                 <button type="submit" class="btn btn-success">Cetak Laporan</button>
             </form>
         </div>
@@ -130,11 +148,11 @@ if($_POST['bulan'] != ''){
                     <tr class="text-dark text-center">
                         <th scope="col">No</th>
                         <th scope="col">Invoice</th>
-                        <th scope="col">Nama Member</th>
+                        <th scope="col">Nama Pembeli</th>
                         <th scope="col">Pengiriman</th>
-                        <th scope="col">Payment Type</th>
-                        <th scope="col">Transaction Status</th>
-                        <th scope="col">Transaction Time</th>
+                        <th scope="col">Metode Pembayaran</th>
+                        <th scope="col">Status Transaksi</th>
+                        <th scope="col">Waktu Transaksi</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -24,6 +24,12 @@
                                 <label for="username" class="col-sm-6 col-form-label">{{$admin->username}}</label>
                             </div>
                         </div>
+                        <div class="row mb-3">
+                            <label for="username" class="col-sm-4 col-form-label">Status</label>
+                            <div class="col-sm-8">
+                                <label for="username" class="col-sm-6 col-form-label">{{$admin->level_user}}</label>
+                            </div>
+                        </div>
                         <a href="{{route('edit-admin',$admin->id_admin)}}"  class="btn btn-primary">Edit Data</a>
                     </form>
                 </div>

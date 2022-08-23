@@ -10,7 +10,7 @@
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,6 +32,8 @@
 </head>
 
 <body>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <div class="container-xxl position-relative bg-white d-flex p-0">
         <!-- Spinner Start -->
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -57,10 +59,10 @@
                     @if (session('level_user') == 'karyawan' || session('level_user') == 'admin')
                     <a href="{{route('view-kategori')}}" class="nav-item nav-link {{ Request::segment(2) == 'view-kategori' ? 'active' : '' }}"><i class="fa fa-th me-2"></i>KategoriProduk</a>
                     <a href="{{route('view-barang')}}" class="nav-item nav-link {{ Request::segment(2) == 'view-barang' ? 'active' : '' }}"><i class="fa fa-laptop me-2"></i>Barang</a>
+                    <a href="{{ route('transaksi') }}" class="nav-item nav-link {{ Request::segment(2) == 'view-transaksi' ? 'active' : '' }}"><i class="fa fa-cart-plus me-2"></i>Transaksi</a>
 
                     @endif
                     @if (session('level_user') == 'admin')
-                    <a href="{{ route('transaksi') }}" class="nav-item nav-link {{ Request::segment(2) == 'view-transaksi' ? 'active' : '' }}"><i class="fa fa-cart-plus me-2"></i>Transaksi</a>
                     <a href="{{ route('laporan') }}" class="nav-item nav-link {{ Request::segment(2) == 'laporan' ? 'active' : '' }}"><i class="far fa-file-alt me-2"></i>Laporan Penjualan</a>
                     @endif
                 </div>
@@ -140,7 +142,7 @@
     </div>
 
     <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('/')}}backend/lib/chart/chart.min.js"></script>
     <script src="{{ asset('/')}}backend/lib/easing/easing.min.js"></script>

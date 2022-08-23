@@ -22,11 +22,13 @@ class LaporanController extends Controller
                 ->join('members', 'transaksis.id', '=', 'members.id')
                 ->whereMonth('transaction_time', $request->bulan)
                 ->whereYear('transaction_time', $request->tahun)
+                ->where('transaction_status', $request->status)
                 ->orderBy('transaction_time', 'DESC')->get();
-        } else {
+        } else{
             $transaction = DB::table('transaksis')
                 ->join('members', 'transaksis.id', '=', 'members.id')
                 ->whereYear('transaction_time', $request->tahun)
+                ->where('transaction_status', $request->status)
                 ->orderBy('transaction_time', 'DESC')->get();
         }
 

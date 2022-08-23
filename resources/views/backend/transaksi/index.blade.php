@@ -18,11 +18,11 @@
                         <tr class="text-dark text-center">
                             <th scope="col">No</th>
                             <th scope="col">Invoice</th>
-                            <th scope="col">Nama Member</th>
+                            <th scope="col">Nama Pembeli</th>
                             <th scope="col">Pengiriman</th>
-                            <th scope="col">Payment Type</th>
-                            <th scope="col">Transaction Status</th>
-                            <th scope="col">Transaction Time</th>
+                            <th scope="col">Metode Pembayaran</th>
+                            <th scope="col">Status Transaksi</th>
+                            <th scope="col">Waktu Transaksi</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -66,8 +66,8 @@
                                 </div>
                                 <div class="modal-body">
                                     <h6 style="text-align: left">Invoice : {{ $item->order_id }}</h6>
-                                    <h6 style="text-align: left">Nama Member : {{ $item->nama_member }}</h6>
-                                    <h6 style="text-align: left">Transaction Status : <span class="badge bg-primary">{{ $item->transaction_status }}</span></h6>
+                                    <h6 style="text-align: left">Nama Pembeli : {{ $item->nama_member }}</h6>
+                                    <h6 style="text-align: left">Status Transaksi : <span class="badge bg-primary">{{ $item->transaction_status }}</span></h6>
                                     <hr>
                                     <form action="{{ route('transaksi.store_resi') }}" method="POST">
                                         <input type="hidden" name="order_id" value="{{ $item->order_id }}">

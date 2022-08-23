@@ -18,8 +18,8 @@
                     <thead>
                         <tr class="text-dark">
                             <th scope="col">No</th>
-                            <th scope="col">Nama Barang</th>
-                            <th scope="col">Slug Barang</th>
+                            <th scope="col">Nama Kategori Barang</th>
+                            <th scope="col">Slug Kategori Barang</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>

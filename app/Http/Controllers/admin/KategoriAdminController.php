@@ -24,11 +24,14 @@ class KategoriAdminController extends Controller
 
     public function savekategori(Request $r){
         $validator = Validator::make($r->all(),[
-            'nama_kategori' => 'required',
+            'nama_kategori' => 'required|unique:kategoris,nama_kategori',
+        ],
+        [
+            'nama_kategori.unique' => 'Nama Kategori Sudah Ada',
         ]);
 
         if($validator->fails()){
-            return redirect('tambah-kategori')
+            return redirect()->route('tambah-kategori')
                 ->withErrors($validator)
                 ->withInput();
         }

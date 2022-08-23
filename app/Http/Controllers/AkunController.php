@@ -36,6 +36,9 @@ class AkunController extends Controller
             'province_destination'=>'required',
             'city_destination'=>'required',
             'alamat_member' => 'required',
+        ],[
+            'province_destination.required'  => 'Provinsi tidak boleh kosong',
+            'city_destination.required' => 'Provinsi dan Kota/Kabupeten tidak boleh kosong',
         ]);
         if($r->file('gambar')==''){
             member::where('id',$id)->update([

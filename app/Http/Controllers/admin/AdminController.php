@@ -21,15 +21,24 @@ class AdminController extends Controller
 
     public function tambahadmin(){
         $admin['admin'] = DB::table('admins')->where('id_admin',Session('id_admin'))->first();
+        $admin['leveladmin'] = DB::table('admins')->get();
         return view('backend.admin.tambah_admin',$admin);
     }
 
     public function saveadmin(Request $r){
         $Validator = Validator :: make($r->all(),[
             'nama_admin'=>'required',
-            'username'=>'required',
-            'password'=>'required',
+            'username'=>'required|unique:admins,username',
+            'level_user'=>'required',
+            'password'=>'required|min:5|max:8',
             'gambar'=>'required',
+        ],[
+            'nama_admin.required' => 'Nama Admin tidak boleh kosong',
+            'username.unique' => 'Username Sudah Ada',
+            'username.required' => 'Username tidak boleh kosong',
+            'password.min' => 'Minimal Password 5 karakter',
+            'password.max' => 'Panjang Password minimal 8 karakter',
+            'password.required' => 'Password tidak boleh kosong',
         ]);
         if($Validator->fails()){
             return redirect()->route('tambah-admin')
@@ -44,6 +53,7 @@ class AdminController extends Controller
         $simpan = Admin::insert([
             'nama_admin'=>$r->nama_admin,
             'username'=>$r->username,
+            'level_user'=>$r->level_user,
             'password' => Hash::make($r->password),
             'gambar'=> $fileName,
         ]);
@@ -56,6 +66,7 @@ class AdminController extends Controller
 
     public function editadmin($id){
         $data['admin'] = DB::table('admins')->where('id_admin',Session('id_admin'))->first();
+        $data['leveladmin'] = DB::table('admins')->get();
         $data['admin']=DB::table('admins')->where('id_admin',$id)->first();
         return view('backend.admin.edit_admin',$data);
     }

@@ -179,7 +179,7 @@
                         {{-- @dd($riwayat); --}}
                         <div class="card-body">
                             <div class="d-flex justify-content-between mb-3 pt-1">
-                                <h6 class="font-weight-bold">  <a  href="">{{$rw['invoice']}}</a> </h6>
+                                <h6 class="font-weight-bold">  <a  href="{{route('detail-riwayat-transaksi', ['order_id' => $rw['invoice']])}}">Invoice :{{$rw['invoice']}}</a> </h6>
                                 <h6>@if ($rw['status']=='settlement')
                                     Status : Sudah Melakukan Pembayaran
                                 @else

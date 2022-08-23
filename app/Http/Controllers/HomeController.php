@@ -8,13 +8,30 @@ use \App\Models\Barang;
 
 class HomeController extends Controller
 {
-    public function index_frontend(){
-        $data['barang'] = DB::table('barangs')->get();
+    public function index_frontend(Request $request){
+        if($request->tnama == 'nama_barang'){
+            $data['barang'] = DB::table('barangs')->where('nama_barang','like','%'.$request->tnama.'%')->get();
+        }
+        // elseif($request->tnama != 'nama_barang'){
+        //     echo '<script>
+        //             alert("Barang tidak ditemukan")
+        //             window.location = "index-frontend"
+        //         </script>';
+        // }
+        else{
+            $data['barang'] = DB::table('barangs')->get();
+        }
         $data['kategori'] = DB::table('kategoris')->get();
         $data['tampil_kategori'] = DB::table('kategoris')->get();
         $data['jumlah']=DB::table('keranjangs')->where('id',session('id'))->count();
         return view ('frontend.home',$data);
     }
+
+    // public function cari(Request $request){
+    //     $tnama = $request->tnama;
+    //     $data['cekNama'] = DB::table('barangs')->where('nama_barang','like',"%".$tnama."%")->get();
+    //     return view('produk.cariproduk',$data);
+    // }
 
     public function detail_produk($slug_barang){
         $data['barang'] = DB::table('barangs')->get();

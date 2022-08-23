@@ -35,7 +35,10 @@ class LoginController extends Controller
                 return redirect('index-frontend');
             }
         }
-        return back();
+        echo '<script>
+                alert("Username / Password Salah !")
+                window.location = "login-member"
+            </script>';
     }
 
     public function logout(Request $r){
@@ -58,14 +61,29 @@ class LoginController extends Controller
     public function save_register(Request $request){
         $validator = Validator::make($request->all(),[
             'nama_member'=>'required',
-            'username_member'=>'required',
-            'password'=>'required',
-            'email_member'=>'required',
+            'username_member'=>'required||unique:members,username_member',
+            'password'=>'required|min:5|max:8',
+            'email_member'=>'required|email',
             'province_destination'=>'required',
             'city_destination'=>'required',
             'no_telepon'=>'required',
             'alamat_member'=>'required',
             'gambar'=>'required',
+        ],
+        [
+            'nama_member.required' => 'Nama Tidak Boleh Kosong',
+            'username_member.unique' => 'Username sudah ada',
+            'username_member.required' => 'Username Tidak Boleh Kosong',
+            'password.min' => 'Minimal Password 5 karakter',
+            'password.max' => 'Panjang Password minimal 8 karakter',
+            'password.required' => 'Password tidak boleh kosong',
+            'email_member.email'=> 'Isi dengan alamat email anda',
+            'email_member.required' => 'Email tidak boleh kosong',
+            'province_destination.required' => 'Provinsi tidak boleh kosong',
+            'city_destination.required' => 'Kota/Kabupaten tidak boleh kosng',
+            'no_telepon.required' => 'No telepon tidak boleh kosong',
+            'alamat_member.required' => 'Alamat anda tidak boleh kosong',
+            'gambar.required' => 'Foto tidak boleh kosong',
         ]);
 
         if($validator->fails()){
@@ -92,7 +110,10 @@ class LoginController extends Controller
         ]);
         // dd($simpan);
         if ($simpan == TRUE) {
-            return redirect('index-frontend')->with('success','Data berhasil disimpan');
+            echo '<script>
+                    alert("Registrasi Anda Berhasil")
+                    window.location = "login-member"
+                </script>';
         }else{
             return redirect('register-member')->with('error','Data gagal disimpan');
         }

@@ -4,6 +4,15 @@
     <div class="container">
         <div class="checkout__form">
             <h4>Akun Saya</h4>
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                             <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <form action="{{route('edit-akun',$akun->id)}}" method="post">
                 @csrf
                 <div class="row">

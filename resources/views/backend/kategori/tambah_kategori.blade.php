@@ -5,6 +5,15 @@
         <div class="col-sm-12 col-xl-6">
             <div class="bg-light rounded h-100 p-4">
                 <h6 class="mb-4">Tambah Kategori Barang</h6>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                 @endif
                 <form action="{{route('save-kategori')}}" method="POST">
                     @csrf
                     <div class="row mb-3">

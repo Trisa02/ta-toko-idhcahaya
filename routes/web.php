@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\admin\DataTransaksiController;
 use App\Http\Controllers\admin\LaporanController;
 use App\Http\Controllers\Admin\LoginAdminController;
+use App\Http\Controllers\Admin\CobaRekapController;
 
 use App\Http\Controllers\Homecontroller;
 use App\Http\Controllers\LoginController;
@@ -35,6 +36,7 @@ use App\Http\Controllers\TransaksiController;
 Route::get('/', [HomeController::class, 'index_frontend'])->name('index-frontend');
 Route::get('detail-barang/{slug_barang}', [HomeController::class, 'detail_produk'])->name('detail-barang');
 Route::get('produk-perkategori/{slug_kategori}', [HomeController::class, 'detail_perkategori'])->name('produk-perkategori');
+Route::get('/cari-barang/{tnama}',[HomeController::class,'cari'])->name('cari');
 
 
 Route::group(['middleware' => 'guest:member'], function () {
@@ -75,7 +77,7 @@ Route::group(['middleware' =>  ['web', 'auth:member']], function () {
     Route::post('send_result_midtrans',[TransaksiController::class, 'send_result_midtrans'])->name('send.result.midtrans');
     //Riwayat Transaksi
     Route::get('view-riwayat-transaksi',[RiwayatTransaksiController::class,'view_riwayat_transaksi'])->name('view-riwayat-transaksi');
-    Route::get('detail-riwayat-transaksi',[RiwayatTransaksiController::class,'detail_riwayat_transaksi'])->name('detail-riwayat-transaksi');
+    Route::get('detail-riwayat-transaksi/{order_id}',[RiwayatTransaksiController::class,'detail_riwayat_transaksi'])->name('detail-riwayat-transaksi');
     Route::get('transaksi-selesai/{invoice}',[TransaksiController::class,'detail_transaksi'])->name('transaksi-selesai');
 
 });
@@ -85,22 +87,21 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/', [LoginAdminController::class, 'login'])->name('login-admin');
     Route::post('aksi-logint', [LoginAdminController::class, 'aksilogintAdmin'])->name('aksi-logint');
     Route::get('dashboard', [HomeadminController::class, 'indexAdmin'])->name('dashboard');
-
-
+    //barang
     Route::get('view-barang', [BarangAdminController::class, 'indexbarang'])->name('view-barang');
     Route::get('tambah-barang', [BarangAdminController::class, 'tambahbarang'])->name('tambah-barang');
     Route::post('save-barang', [BarangAdminController::class, 'simpanbarang'])->name('save-barang');
     route::get('edit-barang/{id_barang}', [BarangAdminController::class, 'editbarang'])->name('edit-barang');
     Route::get('hapus-barang/{id_barang}', [BarangAdminController::class, 'hapusbarang'])->name('hapus-barang');
     Route::post('save-edit-barang', [BarangAdminController::class, 'save_editbarang'])->name('save-edit-barang');
-
+    //kategori
     Route::get('view-kategori', [KategoriAdminController::class, 'viewkategori'])->name('view-kategori');
     Route::get('tambah-kategori', [KategoriAdminController::class, 'tambahkategori'])->name('tambah-kategori');
     Route::post('save-kategori', [KategoriAdminController::class, 'savekategori'])->name('save-kategori');
     Route::get('edit-kategori/{id_kategori}', [KategoriAdminController::class, 'editkategori'])->name('edit-kategori');
     Route::post('save-edit-kategori', [KategoriAdminController::class, 'save_editkategori'])->name('save-edit-kategori');
     Route::get('hapus-kategori/{id_kategori}', [KategoriAdminController::class, 'hapuskategori'])->name('hapus-kategori');
-
+    //admin
     Route::get('view-admin', [AdminController::class, 'viewadmin'])->name('view-admin');
     Route::get('tambah-admin', [AdminController::class, 'tambahadmin'])->name('tambah-admin');
     Route::post('save-admin', [AdminController::class, 'saveadmin'])->name('save-admin');
@@ -117,7 +118,7 @@ Route::group(['prefix' => 'admin'], function () {
     //laporan
     Route::match(['get', 'post'], 'laporan', [LaporanController::class, 'index'])->name('laporan');
     Route::post('laporan-cetak', [LaporanController::class, 'cetak'])->name('laporan.cetak');
-
+    Route::match(['get', 'post'], 'coba-laporan', [CobaRekapController::class, 'index'])->name('coba-laporan');
 
     Route::post('admin-logout', [LoginAdminController::class, 'logout'])->name('admin-logout');
 });

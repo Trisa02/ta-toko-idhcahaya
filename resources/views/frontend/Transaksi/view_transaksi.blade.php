@@ -51,13 +51,19 @@
                             <h6 class="font-weight-bold"></h6>
                         </div>
                         <table class="table">
+                            @php
+                                $sub_total = 0;
+                            @endphp
                                 @foreach ($keranjang as $item)
                                     <tr>
-                                        <td style="width: 70%"><img src="{{asset('gambar/'.$item->gambar)}}" alt="" style="width: 50px;"> </td>
+                                        <td style="width: 70%"><img src="{{asset('gambar/'.$item->gambar)}}" alt="" style="width: 50px;">{{$item->nama_barang}}</td>
                                         <td><b>{{$item->qty}}pcs</b> </td>
                                         <th>:</th>
                                         <td>Rp.{{number_format($item->harga)}}</td>
                                     </tr>
+                                    @php
+                                        $sub_total+=$item->harga;
+                                    @endphp
                                 @endforeach
                         </table>
 
@@ -66,11 +72,9 @@
                         </div>
                             <table class="table">
                                 <tr>
-                                    @foreach ($keranjang as $item)
-                                        <th style="width: 80%">Sub Total Produk</th>
-                                        <th>:</th>
-                                        <td>Rp.{{$item->total}}</td>
-                                    @endforeach
+                                    <th style="width: 80%">Sub Total Produk</th>
+                                    <th>:</th>
+                                    <td>Rp.{{$sub_total}}</td>
                                 </tr>
                                 <tr>
                                     <th style="width: 80%">Ongkir</th>
@@ -96,11 +100,14 @@
                             <tr>
 
                                 <th style="width: 80%">Status Pembayaran</th>
-                                @if ($selesai->transaction_status =='pending')
                                 <th>:</th>
-                                <td>Belum Melakukan Pembayaran</td>
-                                @endif
-
+                                <td>
+                                    @if ($selesai->transaction_status == 'settlement')
+                                        Sudah Melakukan Pembayaran
+                                     @else
+                                        Menunggu Pembayaran
+                                    @endif
+                                </td>
                             </tr>
                         </table>
                 </div>

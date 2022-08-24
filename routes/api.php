@@ -28,6 +28,7 @@ Route::post('get-snaptoken', [TransaksiController::class, 'get_snap_token'])->na
 Route::post('get-snaptoken-langsung', [TransaksiController::class, 'get_snap_token_langsung'])->name('get.snaptoken.langsung');
 
 Route::post('payment-handler', [PaymentController::class, 'payment_handler'])->name('payment.handler');
+Route::post('payment-handler-keranjang',[PaymentController::class, 'payment_handler_keranjang'])->name('payment.handler.keranjang');
 
 //Lacak barang
 Route::post('lacak-barang',[RiwayatTransaksiController::class,'lacak'])->name('lacak-barang');

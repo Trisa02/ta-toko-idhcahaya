@@ -19,7 +19,7 @@ class KeranjangController extends Controller
             ->where('id',$id)->get();
             $data['jumlah']=DB::table('keranjangs')->where('id',session('id'))->count();
             // dd($data);
-            return view('Frontend.keranjang.view_keranjang',$data);
+            return view('frontend.keranjang.view_keranjang',$data);
         }else{
             return redirect('login-member');
         }

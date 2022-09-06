@@ -61,7 +61,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="">Pilih Status Transaksi <i class="text-danger"></i></label>
+                        <label for="">Pilih Status Transaksi <i class="text-danger"><small>( boleh di kosongkan )</small></i></label>
                         <select name="status" id="status" class="form-control">
                             <option value="">-select-</option>
                             <option value="pending">Belum Melakukan Pembayaran</option>
@@ -114,7 +114,7 @@ function convertBulan($b){
         return 'Desember';
     }
 }
-if($_POST['bulan'] != ''){
+if($_POST['bulan'] != '' && $_POST['status'] != ''){
     $transaction = DB::table('transaksis')
     ->join('members', 'transaksis.id', '=', 'members.id')
     ->whereMonth('transaction_time', $_POST['bulan'])
@@ -125,7 +125,6 @@ if($_POST['bulan'] != ''){
     $transaction = DB::table('transaksis')
     ->join('members', 'transaksis.id', '=', 'members.id')
     ->whereYear('transaction_time', $_POST['tahun'])
-    ->where('transaction_status', $_POST['status'])
     ->orderBy('transaction_time', 'DESC')->get();
 }
 

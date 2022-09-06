@@ -17,7 +17,7 @@ class LaporanController extends Controller
 
     public function cetak(Request $request)
     {
-        if ($request->bulan != '') {
+        if ($request->bulan != '' && $request->status != '') {
             $transaction = DB::table('transaksis')
                 ->join('members', 'transaksis.id', '=', 'members.id')
                 ->whereMonth('transaction_time', $request->bulan)
@@ -28,7 +28,6 @@ class LaporanController extends Controller
             $transaction = DB::table('transaksis')
                 ->join('members', 'transaksis.id', '=', 'members.id')
                 ->whereYear('transaction_time', $request->tahun)
-                ->where('transaction_status', $request->status)
                 ->orderBy('transaction_time', 'DESC')->get();
         }
 

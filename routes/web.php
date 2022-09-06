@@ -2,14 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Admin\HomeadminController;
-use App\Http\Controllers\Admin\BarangAdminController;
-use App\Http\Controllers\Admin\KategoriAdminController;
-use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\admin\HomeadminController;
+use App\Http\Controllers\admin\BarangAdminController;
+use App\Http\Controllers\admin\KategoriAdminController;
+use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\DataTransaksiController;
 use App\Http\Controllers\admin\LaporanController;
-use App\Http\Controllers\Admin\LoginAdminController;
-use App\Http\Controllers\Admin\CobaRekapController;
+use App\Http\Controllers\admin\LoginAdminController;
+use App\Http\Controllers\admin\CobaRekapController;
+use App\Http\Controllers\admin\CRUDController;
 
 use App\Http\Controllers\Homecontroller;
 use App\Http\Controllers\LoginController;
@@ -19,6 +20,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\RiwayatTransaksiController;
 use App\Http\Controllers\BeliLangsungController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\TesController;
 
 
 /*
@@ -38,7 +40,6 @@ Route::get('detail-barang/{slug_barang}', [HomeController::class, 'detail_produk
 Route::get('produk-perkategori/{slug_kategori}', [HomeController::class, 'detail_perkategori'])->name('produk-perkategori');
 Route::get('/cari-barang/{tnama}',[HomeController::class,'cari'])->name('cari');
 
-
 Route::group(['middleware' => 'guest:member'], function () {
     //Register
     Route::get('register-member', [LoginController::class, 'register'])->name('register-member');
@@ -47,12 +48,14 @@ Route::group(['middleware' => 'guest:member'], function () {
     //Login
     Route::get('login-member', [LoginController::class, 'loginmember'])->name('login-member');
     Route::post('aksi-login', [LoginController::class, 'aksi_login'])->name('aksi-login');
+
 });
 
 Route::group(['middleware' =>  ['web', 'auth:member']], function () {
     //Dashboard
     Route::get('index-frontend', [HomeController::class, 'index_frontend'])->name('index-frontends');
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+
     ///Akun
     Route::get('view-akun', [AkunController::class, 'akun'])->name('view-akun');
     Route::post('edit-akun/{id}', [AkunController::class, 'editakun'])->name('edit-akun');

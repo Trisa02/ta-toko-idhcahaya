@@ -21,12 +21,12 @@ class CheckoutController extends Controller
         $data['jumlah']=DB::table('keranjangs')->where('id',session('id'))->count();
         $data['member']=DB::table('members')->where('id',$id)->first();
         // dd($data);
-        return view ('Frontend.Transaksi.view_checkout',$data);
+        return view ('frontend.transaksi.view_checkout',$data);
     }
 
     public function viewbelilangsung(Request $r){
         $data['jumlah']=DB::table('keranjangs')->where('id',session('id'))->count();
-        return view ('Frontend.Transaksi.view_belilangsung',$data);
+        return view ('frontend.transaksi.view_belilangsung',$data);
     }
 
 

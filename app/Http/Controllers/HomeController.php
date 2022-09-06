@@ -8,9 +8,10 @@ use \App\Models\Barang;
 
 class HomeController extends Controller
 {
-    public function index_frontend(Request $request){
-        if($request->tnama == 'nama_barang'){
-            $data['barang'] = DB::table('barangs')->where('nama_barang','like','%'.$request->tnama.'%')->get();
+    public function index_frontend(Request $request)
+    {
+        if ($request->tnama == 'nama_barang') {
+            $data['barang'] = DB::table('barangs')->where('nama_barang', 'like', '%' . $request->tnama . '%')->get();
         }
         // elseif($request->tnama != 'nama_barang'){
         //     echo '<script>
@@ -18,13 +19,13 @@ class HomeController extends Controller
         //             window.location = "index-frontend"
         //         </script>';
         // }
-        else{
+        else {
             $data['barang'] = DB::table('barangs')->get();
         }
         $data['kategori'] = DB::table('kategoris')->get();
         $data['tampil_kategori'] = DB::table('kategoris')->get();
-        $data['jumlah']=DB::table('keranjangs')->where('id',session('id'))->count();
-        return view ('frontend.home',$data);
+        $data['jumlah'] = DB::table('keranjangs')->where('id', session('id'))->count();
+        return view('frontend.home', $data);
     }
 
     // public function cari(Request $request){
@@ -33,18 +34,19 @@ class HomeController extends Controller
     //     return view('produk.cariproduk',$data);
     // }
 
-    public function detail_produk($slug_barang){
+    public function detail_produk($slug_barang)
+    {
+        // dd($slug_barang);
         $data['barang'] = DB::table('barangs')->get();
-        $data['detail'] = DB::table('barangs')->where('slug_barang',$slug_barang)->get();
-        return view ('frontend.produk.detail_barang',$data);
+        $data['detail'] = DB::table('barangs')->where('slug_barang', $slug_barang)->get();
+        return view('frontend.produk.detail_barang', $data);
     }
 
-    public function detail_perkategori($slug_kategori){
+    public function detail_perkategori($slug_kategori)
+    {
         $data['kategori'] = DB::table('kategoris')->get();
-        $data['detail_kategori'] = DB::table('kategoris')->join('barangs','kategoris.id_kategori','=','barangs.id_kategori')
-        ->where('kategoris.slug_kategori',$slug_kategori)->get();
-        return view('frontend.produk.produk_perkategori',$data);
+        $data['detail_kategori'] = DB::table('kategoris')->join('barangs', 'kategoris.id_kategori', '=', 'barangs.id_kategori')
+            ->where('kategoris.slug_kategori', $slug_kategori)->get();
+        return view('frontend.produk.produk_perkategori', $data);
     }
-
-
 }

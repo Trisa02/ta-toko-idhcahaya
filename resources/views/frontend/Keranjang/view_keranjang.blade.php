@@ -19,6 +19,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
+                    @if (session('pesan'))
+                        <div class="alert alert-danger">
+                            {{ session('pesan') }}
+                        </div>
+                    @endif
                     <div class="shoping__cart__table">
                         <table>
                             <thead>

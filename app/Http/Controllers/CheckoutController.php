@@ -13,34 +13,50 @@ use Kavist\RajaOngkir\Facades\RajaOngkir;
 
 class CheckoutController extends Controller
 {
-    public function view_chechkout(Request $r){
+    public function view_chechkout(Request $r)
+    {
         $id = Auth::user()->id;
+
+        $data['jumlah'] = DB::table('keranjangs')->where('id', session('id'))->count();
+        $data['member'] = DB::table('members')->where('id', $id)->first();
         $data['checkout'] = DB::table('keranjangs')
-        ->join('barangs','keranjangs.id_barang','=','barangs.id_barang')
-        ->where('id',$id)->get();
-        $data['jumlah']=DB::table('keranjangs')->where('id',session('id'))->count();
-        $data['member']=DB::table('members')->where('id',$id)->first();
-        // dd($data);
-        return view ('frontend.transaksi.view_checkout',$data);
+            ->join('barangs', 'keranjangs.id_barang', '=', 'barangs.id_barang')
+            ->where('id', $id)->get();
+
+        foreach ($data['checkout'] as $c) {
+            $stok = $c->stok;
+            $qty = $c->qty;
+
+            if ($stok < $qty) {
+                $pesan = "Stok $c->nama_barang tidak cukup, Stok Saat ini : $c->stok";
+                return redirect()->route('view-keranjang')->with('pesan', $pesan);
+            } else {
+                $pesan = [];
+            }
+        }
+        return view('frontend.transaksi.view_checkout', $data);
     }
 
-    public function viewbelilangsung(Request $r){
-        $data['jumlah']=DB::table('keranjangs')->where('id',session('id'))->count();
-        return view ('frontend.transaksi.view_belilangsung',$data);
+    public function viewbelilangsung(Request $r)
+    {
+        $data['jumlah'] = DB::table('keranjangs')->where('id', session('id'))->count();
+        return view('frontend.transaksi.view_belilangsung', $data);
     }
 
 
 
-    public function getCities($id){
-        $city = City::where('province_id',$id)->pluck('name','city_id');
+    public function getCities($id)
+    {
+        $city = City::where('province_id', $id)->pluck('name', 'city_id');
         return response()->json($city);
     }
 
-    public function check_ongkir(Request $request,$id_user){
-        $berat=DB::table('keranjangs')->where('id',$id_user)->get();
+    public function check_ongkir(Request $request, $id_user)
+    {
+        $berat = DB::table('keranjangs')->where('id', $id_user)->get();
         $totalbarek = 0;
-        foreach($berat as $br){
-            $barek = DB::table('barangs')->where('id_barang',$br->id_barang)->first();
+        foreach ($berat as $br) {
+            $barek = DB::table('barangs')->where('id_barang', $br->id_barang)->first();
             $totalbarek += $barek->berat;
         }
         $cost = RajaOngkir::ongkoskirim([

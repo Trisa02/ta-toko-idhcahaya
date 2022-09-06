@@ -21,6 +21,13 @@
 <section class="product-details spad">
     <div class="container">
         <div class="row">
+            <div class="col-md-12">
+                @if (session('pesan'))
+                <div class="alert alert-danger">
+                    {{ session('pesan') }}
+                </div>
+            @endif
+            </div>
             <div class="col-lg-4 col-md-4">
                 @foreach ($detail as $dtl)
                 <div class="product__details__pic">

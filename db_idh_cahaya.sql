@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 17 Agu 2022 pada 09.58
+-- Waktu pembuatan: 26 Agu 2022 pada 14.37
 -- Versi server: 10.4.22-MariaDB
 -- Versi PHP: 7.4.27
 
@@ -28,11 +28,11 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admins` (
-  `id_admin` bigint(20) UNSIGNED NOT NULL,
-  `nama_admin` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_admin` int(11) UNSIGNED NOT NULL,
+  `nama_admin` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `gambar` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `gambar` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `level_user` enum('admin','karyawan') COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -44,7 +44,7 @@ CREATE TABLE `admins` (
 
 INSERT INTO `admins` (`id_admin`, `nama_admin`, `username`, `password`, `gambar`, `level_user`, `created_at`, `updated_at`) VALUES
 (2, 'Indah Nur Aini', 'idh_cahaya', '$2y$10$1lX5.F44Kx.fhXmtkXsH2.wSE/Z8LsKoDLoMSKFU7OSBgPvmpmXcG', 'avatar.jpg', 'admin', NULL, '2022-08-02 00:16:55'),
-(6, 'Trisa Sarifatul Anisak', 'trisaSFA02', '$2y$10$vqJOIPLWssHD104n9ZBJd.aY0Zm6FFxoSz6KO0DqMQCtf4aDcptZy', '0990.png_860.png', 'karyawan', NULL, NULL);
+(6, 'Trisa', 'trisaSFA02', '$2y$10$paxjE8kBJPX2CvehtIXkxOhuuTAdUkb7MKEGjexYMERPIHFQ4R9Fe', 'cewe.jpg', 'karyawan', NULL, '2022-08-21 06:16:58');
 
 -- --------------------------------------------------------
 
@@ -53,15 +53,15 @@ INSERT INTO `admins` (`id_admin`, `nama_admin`, `username`, `password`, `gambar`
 --
 
 CREATE TABLE `barangs` (
-  `id_barang` bigint(20) UNSIGNED NOT NULL,
-  `id_kategori` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nama_barang` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `stok` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `harga` int(11) NOT NULL,
+  `id_barang` int(11) UNSIGNED NOT NULL,
+  `id_kategori` int(11) NOT NULL,
+  `nama_barang` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `stok` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `harga` double(8,2) NOT NULL,
   `berat` int(11) NOT NULL,
-  `slug_barang` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug_barang` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `detail` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `gambar` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `gambar` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -71,10 +71,20 @@ CREATE TABLE `barangs` (
 --
 
 INSERT INTO `barangs` (`id_barang`, `id_kategori`, `nama_barang`, `stok`, `harga`, `berat`, `slug_barang`, `detail`, `gambar`, `created_at`, `updated_at`) VALUES
-(4, '3', 'DOMPET WANITA IMPORT MURAH REAL PIC/ Dompet Lipat Pendek Dompet Wanita Resleting Dompet Kartu Kecild', '22', 25000, 105, 'dompet-wanita-import-murah-real-pic-dompet-lipat-pendek-dompet-wanita-resleting-dompet-kartu-kecild', 'DISKRIPSI PRODUK :\r\nberat 165 gram\r\n1 kg muat 8 pcs \r\n- Panjang 19 cm\r\n- Lebar 9cm\r\n- D 3 cm\r\n- 10 slot kartu\r\n- 2 Ruang tengah besar untuk uang kertas\r\n- 1 Resleting Panjang bagian dalam\r\n-Jaitan rapi dan kuat\r\n- 1 Slot samping untuk uang kertas', 'dompet.jfif', NULL, '2022-08-01 06:54:38'),
-(5, '4', 'Pot Bunga Ornamen Buatan Plastik Panjangan Dekorasi', '10', 33250, 21, 'pot-bunga-ornamen-buatan-plastik-panjangan-dekorasi', 'Bentuk Bunga :Lainnya\r\nJenis Bunga : Buatan\r\nSpesies Tanaman : Dekorasi', 'bonsai.jpg', NULL, NULL),
-(6, '5', 'Case Hp Full Body untuk semua Smartphone', '15', 15000, 30, 'case-hp-full-body-untuk-semua-smartphone', 'Deskripsi Produk : \r\nBerat : 30gram,Bahan : Soft Case', 'casehp.jfif', NULL, '2022-08-02 03:05:19'),
-(7, '6', 'Olike Wired Earphone Headset In Ear HD Audio Headphone Handsfree Garansi Resmi 6 Bulan OASE DE-W3', '5', 25000, 300, 'olike-wired-earphone-headset-in-ear-hd-audio-headphone-handsfree-garansi-resmi-6-bulan-oase-de-w3', 'Nyaman dan bebas gerak dengan earphone DE-W3\r\n*anti slip dan ramah di kulit untuk di pakai seharian\r\n*Desain In Ear Earphone dan panjang kabel 120 cm\r\n*Audio jack 3,5 mm, pas untuk semua perangkat gadgetmu.', 'headset.jfif', NULL, NULL);
+(20, 24, 'Totebag Kanvas Aesthetics Wanita', '25', 30000.00, 750, 'totebag-kanvas-aesthetics-wanita', 'Material : Canvas\r\nJahitan Rapi dan Kokoh\r\nPanjang dan lebar tas : 40 x 28 cm\r\nEstimasi jahit 2-3 cm', 'tas.jpeg', NULL, NULL),
+(21, 29, 'Jaket Hoodie Wanita', '9', 73000.00, 500, 'jaket-hoodie-wanita', 'Jaket Hoodie lengan panjang, dengan motif beruang\r\nAll Size, bahan fleece tebal, dan jahitan rapi', 'hoodie.PNG', NULL, NULL),
+(22, 29, 'Cardigan rajut wanita normal size', '4', 39000.00, 500, 'cardigan-rajut-wanita-normal-size', 'Cardigan rajut wanita terbuat dari bahan rajut halus,\r\nDesain kekinian alias up to date\r\nNormal size untuk BB +- 60 Kg TB 150\r\nLingkar Dada : 100 cm\r\nPanjang Baju : 60 S/D 63 CM', 'cardigan.PNG', NULL, NULL),
+(23, 27, 'Jilbab Pasmina Baby doll', '21', 18000.00, 300, 'jilbab-pasmina-baby-doll', 'Keterangan Jilbab :\r\nBahan : babydoll premium\r\nUkuran : 180 x 75 cm (toleransi jahit 3-5 cm )\r\nPinggiran di jahit tepi', 'PASMINA.PNG', NULL, NULL),
+(24, 20, 'Brush  Make up set Hello Kitty', '10', 20000.00, 300, 'brush-make-up-set-hello-kitty', 'Kuas set isi 7 Mini :\r\n-Lip brush   \r\n-Face brush\r\n-Shader Brush\r\n-Eyeshadow brush\r\n-Foundation Brush\r\n-Angled Eyeliner Brush\r\nEyeshades Stick Brush', 'brush.jpeg', NULL, NULL),
+(25, 17, 'Card Holer atau Dompet Kartu Lipat', '25', 20000.00, 300, 'card-holer-atau-dompet-kartu-lipat', 'Dompet kartu atau Card Holder\r\nUkuran 11x8\r\nTerdiri dari 1 slot uang, 14 slot kartu, Bahan kulit sintetis\r\nDalam sewarna kulit motif', 'card.webp', NULL, '2022-08-25 07:21:10'),
+(26, 21, 'Headset Macaroon Mate Color Yellow Tali', '7', 20000.00, 150, 'headset-macaroon-mate-color-yellow-tali', 'Headset Macaroon Color Yellow Mate\r\nTipe Koneksi : Kabel\r\nKesesuaian Audio : Handphone\r\nMaksimum Frekuensi : 50000 Hz\r\nMinimum Frekuensi 45 Hz', 'headse1.jpeg', NULL, NULL),
+(27, 26, 'Lampu Tumblr/Hias Tidur/Lampu Hias ELD', '10', 25000.00, 98, 'lampu-tumblrhias-tidurlampu-hias-eld', 'Lampu Tumblr Bentu Tali\r\nPower 5 watt/meter\r\nLed : 50 buah\r\nPenggunaan : Indoor dan Outdoor\r\nPanjang : 10 meter\r\nHemat Energi\r\ndapa berubah warna sesuai yang diatur', 'lampu.jpg', NULL, '2022-08-25 07:41:36'),
+(28, 23, 'Kaca Mata Anti Radiasi Photocromic', '10', 22500.00, 100, 'kaca-mata-anti-radiasi-photocromic', 'Bahan Frame Depan : Titanium\r\nBahan Frame Belakang / Tangkai Frame : Titanium\r\nWarna Lensa Photocromic : Gelap Grey\r\nSpesifikasi Lensa\r\n     1. Lensa Indeks 1,56\r\n     2. Bahan Lensa Mika Supersin\r\n     3. Warna Coating lensa Ungu + Hijau\r\n     4. Lapisan Lensa Sudah Anti Gores\r\n     5. Lensa Sudah Mengandung Anti Radiasi Sinar UV/ Matahari, Radiasi Komputer dan Radiasi Hp', 'kacamata5.PNG', NULL, '2022-08-25 07:47:56'),
+(29, 27, 'Jilbab Bella Square', '21', 20000.00, 300, 'jilbab-bella-square', 'Bahan Polly Catton \r\nUkuran 110 x 110 cm\r\nMotif coklat poslos', 'jilbab3.jpeg', NULL, NULL),
+(30, 24, 'Tas Selempang Wanita', '10', 42000.00, 500, 'tas-selempang-wanita', 'BAHAN: Sintetis\r\nSling bag berbahan PU super mewaaah, tebal, jahitan rapih. Tas ini juga cukup roomy\r\n1kg bisa muat 2 tas cantik\r\nUKURAN: 20,5cm x 7cm x 15cm \r\n- Dalam ada furing\r\n- dalam ada kantong kecil (untuk taruh uang koin)\r\n- Tali rantai premium\r\n- jahitan rapi', 'tas.jpg', NULL, '2022-08-25 07:55:40'),
+(31, 19, 'Botol Minum Lucu', '10', 2000.00, 100, 'botol-minum-lucu', 'Kapasitas Volume 500ml', 'botol.jpg', NULL, '2022-08-25 08:44:51'),
+(32, 18, 'Masker Duckbil Putih', '10', 15000.00, 100, 'masker-duckbil-putih', '1box isi 50pcs ( Sudah ada boxnya )\r\nsangat cocok digunakan untuk sehari-hari dimanapun kalian berada.\r\nWarna Makser : Putih', 'masker.jpeg', NULL, NULL),
+(33, 19, 'Satu set sumpit dan sendok', '10', 20000.00, 100, 'satu-set-sumpit-dan-sendok', 'Berat 100g\r\nUkuran Kotak 19 X 4 X 2 CM\r\nBahan Stainless Steel\r\nTahan Panas', 'alat makan.jpeg', NULL, '2022-08-25 08:54:10');
 
 -- --------------------------------------------------------
 
@@ -83,7 +93,7 @@ INSERT INTO `barangs` (`id_barang`, `id_kategori`, `nama_barang`, `stok`, `harga
 --
 
 CREATE TABLE `belilangsungs` (
-  `id_beli` int(10) UNSIGNED NOT NULL,
+  `id_beli` int(11) UNSIGNED NOT NULL,
   `id` int(11) NOT NULL,
   `id_barang` int(11) NOT NULL,
   `tanggal` date NOT NULL,
@@ -98,7 +108,7 @@ CREATE TABLE `belilangsungs` (
 --
 
 INSERT INTO `belilangsungs` (`id_beli`, `id`, `id_barang`, `tanggal`, `qty`, `total`, `created_at`, `updated_at`) VALUES
-(4, 1, 5, '2022-08-17', 3, 99750.00, NULL, NULL);
+(19, 12, 19, '2022-08-25', 2, 72000.00, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -107,10 +117,10 @@ INSERT INTO `belilangsungs` (`id_beli`, `id`, `id_barang`, `tanggal`, `qty`, `to
 --
 
 CREATE TABLE `cities` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL,
   `province_id` int(10) UNSIGNED NOT NULL,
   `city_id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -443,7 +453,7 @@ INSERT INTO `cities` (`id`, `province_id`, `city_id`, `name`, `created_at`, `upd
 (321, 24, 158, 'Jayapura', '2022-08-08 05:50:23', '2022-08-08 05:50:23'),
 (322, 24, 159, 'Jayawijaya', '2022-08-08 05:50:23', '2022-08-08 05:50:23'),
 (323, 24, 180, 'Keerom', '2022-08-08 05:50:23', '2022-08-08 05:50:23'),
-(324, 24, 193, 'Kepulauan Yapen (Yapen Waropen)', '2022-08-08 05:50:23', '2022-08-08 05:50:23'),
+(324, 24, 193, 'Kepulauan Yapen (Yapen Wa', '2022-08-08 05:50:23', '2022-08-08 05:50:23'),
 (325, 24, 231, 'Lanny Jaya', '2022-08-08 05:50:23', '2022-08-08 05:50:23'),
 (326, 24, 263, 'Mamberamo Raya', '2022-08-08 05:50:23', '2022-08-08 05:50:23'),
 (327, 24, 264, 'Mamberamo Tengah', '2022-08-08 05:50:23', '2022-08-08 05:50:23'),
@@ -508,7 +518,7 @@ INSERT INTO `cities` (`id`, `province_id`, `city_id`, `name`, `created_at`, `upd
 (386, 28, 333, 'Pangkajene Kepulauan', '2022-08-08 05:50:29', '2022-08-08 05:50:29'),
 (387, 28, 336, 'Parepare', '2022-08-08 05:50:29', '2022-08-08 05:50:29'),
 (388, 28, 360, 'Pinrang', '2022-08-08 05:50:29', '2022-08-08 05:50:29'),
-(389, 28, 396, 'Selayar (Kepulauan Selayar)', '2022-08-08 05:50:29', '2022-08-08 05:50:29'),
+(389, 28, 396, 'Selayar (Kepulauan Selaya', '2022-08-08 05:50:29', '2022-08-08 05:50:29'),
 (390, 28, 408, 'Sidenreng Rappang/Rapang', '2022-08-08 05:50:29', '2022-08-08 05:50:29'),
 (391, 28, 416, 'Sinjai', '2022-08-08 05:50:29', '2022-08-08 05:50:29'),
 (392, 28, 423, 'Soppeng', '2022-08-08 05:50:29', '2022-08-08 05:50:29'),
@@ -540,12 +550,12 @@ INSERT INTO `cities` (`id`, `province_id`, `city_id`, `name`, `created_at`, `upd
 (418, 30, 295, 'Muna', '2022-08-08 05:50:32', '2022-08-08 05:50:32'),
 (419, 30, 494, 'Wakatobi', '2022-08-08 05:50:32', '2022-08-08 05:50:32'),
 (420, 31, 73, 'Bitung', '2022-08-08 05:50:33', '2022-08-08 05:50:33'),
-(421, 31, 81, 'Bolaang Mongondow (Bolmong)', '2022-08-08 05:50:33', '2022-08-08 05:50:33'),
+(421, 31, 81, 'Bolaang Mongondow (Bolmon', '2022-08-08 05:50:33', '2022-08-08 05:50:33'),
 (422, 31, 82, 'Bolaang Mongondow Selatan', '2022-08-08 05:50:33', '2022-08-08 05:50:33'),
 (423, 31, 83, 'Bolaang Mongondow Timur', '2022-08-08 05:50:33', '2022-08-08 05:50:33'),
 (424, 31, 84, 'Bolaang Mongondow Utara', '2022-08-08 05:50:33', '2022-08-08 05:50:33'),
 (425, 31, 188, 'Kepulauan Sangihe', '2022-08-08 05:50:33', '2022-08-08 05:50:33'),
-(426, 31, 190, 'Kepulauan Siau Tagulandang Biaro (Sitaro)', '2022-08-08 05:50:33', '2022-08-08 05:50:33'),
+(426, 31, 190, 'Kepulauan Siau Tagulandan', '2022-08-08 05:50:33', '2022-08-08 05:50:33'),
 (427, 31, 192, 'Kepulauan Talaud', '2022-08-08 05:50:33', '2022-08-08 05:50:33'),
 (428, 31, 204, 'Kotamobagu', '2022-08-08 05:50:33', '2022-08-08 05:50:33'),
 (429, 31, 267, 'Manado', '2022-08-08 05:50:33', '2022-08-08 05:50:33'),
@@ -568,7 +578,7 @@ INSERT INTO `cities` (`id`, `province_id`, `city_id`, `name`, `created_at`, `upd
 (446, 32, 345, 'Payakumbuh', '2022-08-08 05:50:35', '2022-08-08 05:50:35'),
 (447, 32, 357, 'Pesisir Selatan', '2022-08-08 05:50:35', '2022-08-08 05:50:35'),
 (448, 32, 394, 'Sawah Lunto', '2022-08-08 05:50:35', '2022-08-08 05:50:35'),
-(449, 32, 411, 'Sijunjung (Sawah Lunto Sijunjung)', '2022-08-08 05:50:35', '2022-08-08 05:50:35'),
+(449, 32, 411, 'Sijunjung (Sawah Lunto Si', '2022-08-08 05:50:35', '2022-08-08 05:50:35'),
 (450, 32, 420, 'Solok', '2022-08-08 05:50:35', '2022-08-08 05:50:35'),
 (451, 32, 421, 'Solok', '2022-08-08 05:50:35', '2022-08-08 05:50:35'),
 (452, 32, 422, 'Solok Selatan', '2022-08-08 05:50:35', '2022-08-08 05:50:35'),
@@ -645,9 +655,9 @@ CREATE TABLE `failed_jobs` (
 --
 
 CREATE TABLE `kategoris` (
-  `id_kategori` bigint(20) UNSIGNED NOT NULL,
-  `nama_kategori` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug_kategori` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_kategori` int(11) UNSIGNED NOT NULL,
+  `nama_kategori` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug_kategori` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -657,11 +667,19 @@ CREATE TABLE `kategoris` (
 --
 
 INSERT INTO `kategoris` (`id_kategori`, `nama_kategori`, `slug_kategori`, `created_at`, `updated_at`) VALUES
-(1, 'Aksesoris Make Up', 'aksesoris-make-up', NULL, '2022-07-31 07:17:40'),
-(3, 'Dompet Wanita', 'dompet-wanita', NULL, NULL),
-(4, 'Pajangan Ruang Tamu', 'pajangan-ruang-tamu', NULL, '2022-08-01 06:33:39'),
-(5, 'Case HP', 'case-hp', NULL, NULL),
-(6, 'Aksesoris hp', 'aksesoris-hp', NULL, NULL);
+(17, 'Dompet', 'dompet', NULL, NULL),
+(18, 'Masker', 'masker', NULL, '2022-08-25 08:46:33'),
+(19, 'Alat Makan', 'alat-makan', NULL, NULL),
+(20, 'Alat Make up', 'alat-make-up', NULL, NULL),
+(21, 'Aksesoris hp', 'aksesoris-hp', NULL, NULL),
+(22, 'Aksesoris', 'aksesoris', NULL, NULL),
+(23, 'Kaca Mata', 'kaca-mata', NULL, NULL),
+(24, 'Tas', 'tas', NULL, NULL),
+(25, 'Perlengkapan Sekolah', 'perlengkapan-sekolah', NULL, NULL),
+(26, 'Hiasan dan Pajangan Rumah', 'hiasan-dan-pajangan-rumah', NULL, NULL),
+(27, 'Jilbab', 'jilbab', NULL, NULL),
+(28, 'Perlengkapan Sholat', 'perlengkapan-sholat', NULL, NULL),
+(29, 'Baju dan Jaket', 'baju-dan-jaket', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -670,7 +688,7 @@ INSERT INTO `kategoris` (`id_kategori`, `nama_kategori`, `slug_kategori`, `creat
 --
 
 CREATE TABLE `keranjangs` (
-  `id_keranjang` int(10) UNSIGNED NOT NULL,
+  `id_keranjang` int(11) UNSIGNED NOT NULL,
   `id` int(11) NOT NULL,
   `id_barang` int(11) NOT NULL,
   `tanggal` date NOT NULL,
@@ -685,10 +703,7 @@ CREATE TABLE `keranjangs` (
 --
 
 INSERT INTO `keranjangs` (`id_keranjang`, `id`, `id_barang`, `tanggal`, `qty`, `total`, `created_at`, `updated_at`) VALUES
-(4, 1, 5, '2022-08-07', 3, 99750.00, NULL, NULL),
-(5, 1, 4, '2022-08-07', 3, 75000.00, NULL, NULL),
-(6, 3, 7, '2022-08-16', 1, 25000.00, NULL, NULL),
-(7, 5, 5, '2022-08-16', 1, 33250.00, NULL, NULL);
+(25, 1, 22, '2022-08-26', 1, 39000.00, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -697,16 +712,16 @@ INSERT INTO `keranjangs` (`id_keranjang`, `id`, `id_barang`, `tanggal`, `qty`, `
 --
 
 CREATE TABLE `members` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `nama_member` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `username_member` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL,
+  `nama_member` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username_member` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email_member` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `no_telepon` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `alamat_member` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email_member` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `no_telepon` varchar(12) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `alamat_member` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `province_destination` int(11) NOT NULL,
   `city_destination` int(11) NOT NULL,
-  `gambar` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `gambar` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -717,9 +732,10 @@ CREATE TABLE `members` (
 --
 
 INSERT INTO `members` (`id`, `nama_member`, `username_member`, `password`, `email_member`, `no_telepon`, `alamat_member`, `province_destination`, `city_destination`, `gambar`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Putri Wardana', 'putri_01', '$2y$10$piw5NwQL3N3QYZkLw4sktuK.pw72KYDWJmX/cvMZlpe2Z5AAND2ry', 'ciputwardana@gmail.com', '087892924651', 'Jl. H. Miskin, Ekor Lubuk, Kec. Padang Panjang Tim., Kota Padang Panjang, Sumatera Barat', 32, 321, 'putri.png', '', '2022-08-01 08:01:49', '2022-08-16 08:47:42'),
+(1, 'Putri Wardana', 'putri_01', '$2y$10$piw5NwQL3N3QYZkLw4sktuK.pw72KYDWJmX/cvMZlpe2Z5AAND2ry', 'ciputwardana@gmail.com', '087892924657', 'Jl. H. Miskin, Ekor Lubuk, Kec. Padang Panjang Tim., Kota Padang, Sumatera Barat', 32, 318, 'putri.png', '', '2022-08-01 08:01:49', '2022-08-21 20:48:47'),
 (3, 'Mhd.Fauzi', 'fauzi02', '$2y$10$yu8VrQJETVM2tVD65CNLjuN4T9xtf0dMP6FlSMmUySvynHEkQUxpO', 'fauzi@gmail.com', '087892924659', 'Kec. Marpoyan Damai\r\nKota Pekanbaru\r\nRiau', 26, 350, 'cowo.png', NULL, NULL, '2022-08-16 00:34:59'),
-(5, 'Rahmat Mas Surya', 'Rahmat03', '$2y$10$XaANnlNBYntdXtHM9blMMeaQ9QEwhVdnqWZ.gUDQCHMqI99taBjsW', 'rahmat@gmail.com', '087892924651', 'Pulau Betung, Kec. Pemayung, Kabupaten Batang Hari, Jambi', 8, 50, 'cowo.png', NULL, NULL, NULL);
+(10, 'Wulan', 'ulan03', '$2y$10$M9dBaOcbvy5R8jHLFrjdxuJzyi43fdZ9uVcOKc8Y.n2wjQq8w.h5K', 'ulan@gmail.com', '087892924659', 'Sasak, Kec. Sasak Ranah Pesisir, Kabupaten Pasaman Barat, Sumatera Barat', 32, 340, 'cewe.jpg', NULL, NULL, NULL),
+(12, 'Rahmat Mas Surya', 'Rahmat05', '$2y$10$D7ydhUktUPvZaoUMMR5nN.fd6Kcrp33dmgpG9l7fgo7KWbVcTUSoi', 'rahmat@gmail.com', '087892924659', 'Paninggahan, Kec. Junjung Sirih, Kabupaten Solok, Sumatera Barat 27388', 32, 420, 'rahmat.png', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -751,7 +767,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (11, '2022_08_07_093612_create_keranjangs_table', 7),
 (12, '2022_08_08_121825_create_provinces_table', 8),
 (13, '2022_08_08_122055_create_cities_table', 8),
-(14, '2022_08_16_134736_create_belilangsungs_table', 9);
+(14, '2022_08_16_134736_create_belilangsungs_table', 9),
+(15, '2022_08_17_092900_create_transaksis_table', 10),
+(16, '2022_08_17_105858_create_penjualans_table', 11);
 
 -- --------------------------------------------------------
 
@@ -764,6 +782,34 @@ CREATE TABLE `password_resets` (
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `penjualans`
+--
+
+CREATE TABLE `penjualans` (
+  `id_penjualan` int(11) UNSIGNED NOT NULL,
+  `id` int(11) NOT NULL,
+  `invoice` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_barang` int(11) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `total` double(8,2) NOT NULL,
+  `tanggal` date NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `penjualans`
+--
+
+INSERT INTO `penjualans` (`id_penjualan`, `id`, `invoice`, `id_barang`, `qty`, `total`, `tanggal`, `created_at`, `updated_at`) VALUES
+(51, 1, 'INV1661483072', 21, 1, 73000.00, '2022-08-26', NULL, NULL),
+(52, 1, 'INV1661483140', 21, 1, 73000.00, '2022-08-26', NULL, NULL),
+(53, 1, 'INV1661483140', 22, 1, 39000.00, '2022-08-26', NULL, NULL),
+(54, 1, 'INV1661483490', 22, 1, 39000.00, '2022-08-26', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -790,9 +836,9 @@ CREATE TABLE `personal_access_tokens` (
 --
 
 CREATE TABLE `provinces` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL,
   `province_id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -822,7 +868,7 @@ INSERT INTO `provinces` (`id`, `province_id`, `name`, `created_at`, `updated_at`
 (18, 18, 'Lampung', '2022-08-08 05:50:13', '2022-08-08 05:50:13'),
 (19, 19, 'Maluku', '2022-08-08 05:50:14', '2022-08-08 05:50:14'),
 (20, 20, 'Maluku Utara', '2022-08-08 05:50:16', '2022-08-08 05:50:16'),
-(21, 21, 'Nanggroe Aceh Darussalam (NAD)', '2022-08-08 05:50:17', '2022-08-08 05:50:17'),
+(21, 21, 'Nanggroe Aceh Darussalam ', '2022-08-08 05:50:17', '2022-08-08 05:50:17'),
 (22, 22, 'Nusa Tenggara Barat (NTB)', '2022-08-08 05:50:19', '2022-08-08 05:50:19'),
 (23, 23, 'Nusa Tenggara Timur (NTT)', '2022-08-08 05:50:20', '2022-08-08 05:50:20'),
 (24, 24, 'Papua', '2022-08-08 05:50:22', '2022-08-08 05:50:22'),
@@ -836,6 +882,42 @@ INSERT INTO `provinces` (`id`, `province_id`, `name`, `created_at`, `updated_at`
 (32, 32, 'Sumatera Barat', '2022-08-08 05:50:33', '2022-08-08 05:50:33'),
 (33, 33, 'Sumatera Selatan', '2022-08-08 05:50:35', '2022-08-08 05:50:35'),
 (34, 34, 'Sumatera Utara', '2022-08-08 05:50:36', '2022-08-08 05:50:36');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `transaksis`
+--
+
+CREATE TABLE `transaksis` (
+  `id_transaksi` int(11) UNSIGNED NOT NULL,
+  `id` int(11) DEFAULT NULL,
+  `asal` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tujuan` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `alamat_pembeli` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `kurir` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ongkir` double(8,2) NOT NULL,
+  `total_bayar` double(8,2) NOT NULL,
+  `order_id` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status_code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status_message` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `transaction_id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payment_type` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `transaction_time` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `transaction_status` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nomor_resi` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `transaksis`
+--
+
+INSERT INTO `transaksis` (`id_transaksi`, `id`, `asal`, `tujuan`, `alamat_pembeli`, `kurir`, `ongkir`, `total_bayar`, `order_id`, `status_code`, `status_message`, `transaction_id`, `payment_type`, `transaction_time`, `transaction_status`, `nomor_resi`, `created_at`, `updated_at`) VALUES
+(38, 1, 'Pasaman', 'Padang', 'Jl. H. Miskin, Ekor Lubuk, Kec. Padang Panjang Tim., Kota Padang, Sumatera Barat', 'OKE', 34000.00, 107000.00, 'INV1661483072', '201', 'Transaksi sedang diproses', '8ffa76e4-f394-4d55-96e1-190213a53ba6', 'qris', '2022-08-26 10:04:36', 'pending', NULL, NULL, NULL),
+(39, 1, 'Pasaman', 'Padang', 'Jl. H. Miskin, Ekor Lubuk, Kec. Padang Panjang Tim., Kota Padang, Sumatera Barat', 'OKE', 34000.00, 146000.00, 'INV1661483140', '200', 'midtrans payment notification', 'b35cb571-2297-42c5-a055-38d72e9bf8fe', 'qris', '2022-08-26 10:05:44', 'settlement', NULL, NULL, NULL),
+(40, 1, 'Pasaman', 'Padang', 'Jl. H. Miskin, Ekor Lubuk, Kec. Padang Panjang Tim., Kota Padang, Sumatera Barat', 'OKE', 34000.00, 73000.00, 'INV1661483490', '201', 'Transaksi sedang diproses', 'd125bb4d-02d8-4884-82d6-cec2ea68d579', 'qris', '2022-08-26 10:11:34', 'pending', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -920,6 +1002,12 @@ ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
+-- Indeks untuk tabel `penjualans`
+--
+ALTER TABLE `penjualans`
+  ADD PRIMARY KEY (`id_penjualan`);
+
+--
 -- Indeks untuk tabel `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
@@ -932,6 +1020,12 @@ ALTER TABLE `personal_access_tokens`
 --
 ALTER TABLE `provinces`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `transaksis`
+--
+ALTER TABLE `transaksis`
+  ADD PRIMARY KEY (`id_transaksi`);
 
 --
 -- Indeks untuk tabel `users`
@@ -948,25 +1042,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id_admin` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_admin` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `barangs`
 --
 ALTER TABLE `barangs`
-  MODIFY `id_barang` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_barang` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT untuk tabel `belilangsungs`
 --
 ALTER TABLE `belilangsungs`
-  MODIFY `id_beli` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_beli` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT untuk tabel `cities`
 --
 ALTER TABLE `cities`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=502;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=502;
 
 --
 -- AUTO_INCREMENT untuk tabel `failed_jobs`
@@ -978,25 +1072,31 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT untuk tabel `kategoris`
 --
 ALTER TABLE `kategoris`
-  MODIFY `id_kategori` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_kategori` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT untuk tabel `keranjangs`
 --
 ALTER TABLE `keranjangs`
-  MODIFY `id_keranjang` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_keranjang` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT untuk tabel `members`
 --
 ALTER TABLE `members`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT untuk tabel `penjualans`
+--
+ALTER TABLE `penjualans`
+  MODIFY `id_penjualan` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT untuk tabel `personal_access_tokens`
@@ -1008,7 +1108,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT untuk tabel `provinces`
 --
 ALTER TABLE `provinces`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
+--
+-- AUTO_INCREMENT untuk tabel `transaksis`
+--
+ALTER TABLE `transaksis`
+  MODIFY `id_transaksi` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`

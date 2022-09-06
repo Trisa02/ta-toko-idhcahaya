@@ -19,7 +19,7 @@
     .button3 {border-radius: 8px;}
     .button4 {border-radius: 12px;}
     .button5 {border-radius: 50%;}
-    </style>
+</style>
 
 <section class="hero">
     <div class="container">
@@ -87,9 +87,8 @@
             @foreach ($barang as $brg)
                 <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
                     <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="{{asset('gambar/'.$brg->gambar)}}">
+                        <div class="featured__item__pic set-bg" data-setbg="{{asset('gambar/'.$brg->gambar)}} " width="100%" alt="">
                             <ul class="featured__item__pic__hover">
-                                <li><a href="#" data-toggle="tooltip" data-placement="right" title="Favorit"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="{{route('detail-barang',$brg->slug_barang)}}" data-toggle="tooltip" data-placement="right" title="Detail"><i class="fa fa-eye"></i></a></li>
                                 <li>
                                     <form action="{{route('simpan-keranjang')}}" method="post"  enctype="multipart/form-data">

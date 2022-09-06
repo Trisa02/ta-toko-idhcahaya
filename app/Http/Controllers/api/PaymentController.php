@@ -28,7 +28,7 @@ class PaymentController extends Controller
                     'transaction_status' => $data->transaction_status,
                 ]);
 
-            if ($order->transaction_status == 'settlement') {
+            if ($signature_key == $data->signature_key) {
                 $beliLangsung =  DB::table('belilangsungs')->where('id', $order->id)->get();
                 foreach ($beliLangsung as $b) {
                     DB::table('barangs')->where('id_barang', $b->id_barang)
@@ -68,7 +68,7 @@ class PaymentController extends Controller
                     'transaction_status' => $data->transaction_status,
                 ]);
 
-            if ($order->transaction_status == 'settlement') {
+            if ($signature_key = $data->signature_key) {
                 $keranjang =  DB::table('keranjangs')->where('id', $order->id)->get();
                 foreach ($keranjang as $k) {
                     DB::table('barangs')->where('id_barang', $k->id_barang)

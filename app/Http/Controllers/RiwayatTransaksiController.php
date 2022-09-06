@@ -25,7 +25,7 @@ class RiwayatTransaksiController extends Controller
                 ->where('invoice', $val->order_id)->get(),
             ];
         }
-        return view ('Frontend.Transaksi.view_riwayat_transaksi',compact('riwayat'));
+        return view ('frontend.transaksi.view_riwayat_transaksi',compact('riwayat'));
     }
 
     public function detail_riwayat_transaksi($invoice){
@@ -44,7 +44,7 @@ class RiwayatTransaksiController extends Controller
 
         $data['jumlah']=DB::table('keranjangs')->where('id',session('id'))->count();
         // dd($data);
-        return view ('Frontend.Transaksi.detail_riwayat_transaksi',$data);
+        return view ('frontend.transaksi.detail_riwayat_transaksi',$data);
     }
 
     public function lacak(Request $request){

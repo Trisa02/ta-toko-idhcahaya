@@ -184,6 +184,6 @@ class TransaksiController extends Controller
 
         $data['kota'] = DB::table('cities')->where('city_id', Auth::user()->city_destination)->first();
 
-        return view ('frontend.Transaksi.view_transaksi',$data);
+        return view ('frontend.transaksi.view_transaksi',$data);
     }
 }

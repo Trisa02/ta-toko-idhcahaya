@@ -1,4 +1,4 @@
-@extends('Frontend.template')
+@extends('frontend.template')
 @section('content')
     <section class="breadcrumb-section set-bg" data-setbg="{{asset('/')}}img/banner2.png">
         <div class="container">

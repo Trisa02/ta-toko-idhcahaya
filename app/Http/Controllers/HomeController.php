@@ -46,4 +46,5 @@ class HomeController extends Controller
         return view('frontend.produk.produk_perkategori',$data);
     }
 
+
 }

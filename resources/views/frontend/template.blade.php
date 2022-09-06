@@ -46,7 +46,7 @@
                             <div class="header__top__right__social">
                                 <a href="https://www.facebook.com/profile.php?id=100072698470651"><i class="fa fa-facebook"></i></a>
                                 <a href="https://www.instagram.com/idh.cahaya/"><i class="fa fa-instagram"></i></a>
-                                <a href="whatsapp://send?text=Hello&phone=+6282391504480"><i class="fa fa-whatsapp"></i></a>
+                                <a href="whatsapp://send?text=Hello&phone=+6282268141161"><i class="fa fa-whatsapp"></i></a>
                             </div>
                         </div>
                     </div>
@@ -90,25 +90,12 @@
                                         </form>
                                     </div>
                                 </div>
-                                {{-- <div class="header__top__right__auth">
-                                    <form id="formLogout"  action="{{route('logout')}}" method="post">
-                                        @csrf
-                                        <a onclick="logout()" href="#"><i class="fa fa-sign-out"></i>Logout</a>
-                                    </form>
-                                    <script>
-                                        function logout()
-                                        {
-                                            $('#formLogout').submit();
-                                        }
-                                    </script>
-                                </div> --}}
                                 <span class="text-muted px-2">|</span>
                                 <div class="header__top__right__auth">
                                     <a href="{{route('view-riwayat-transaksi')}}"><i class="fa fa-history"></i> Riwayat Transaksi</a>
                                 </div>
                             </div>
                             @endif
-
                         </div>
                     </div>
                 </div>
@@ -124,16 +111,17 @@
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
-                            <li class="active"><a href="./index.html">Idh.Cahaya</a></li>
+                            <li class="active"><a href="">Idh.Cahaya</a></li>
                             <li><a href="{{route('index-frontend')}}">Home</a></li>
                             <li><a href="">Pages</a>
                                 <ul class="header__menu__dropdown">
                                     <li><a href="{{route('view-akun')}}">Akun</a></li>
                                     <li><a href="{{route('view-riwayat-transaksi')}}">Riwayat Transaksi</a></li>
                                     <li><a href="{{route('view-keranjang')}}">Keranjang</a></li>
+                                    {{-- <li><a href="{{route('coba')}}">Coba</a></li> --}}
                                 </ul>
                             </li>
-                            <li><a href="./contact.html">Contact</a></li>
+                            <li><a href="whatsapp://send?text=Hello&phone=+6282268141161">Contact</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -141,8 +129,7 @@
                     @auth
                         <div class="header__cart">
                             <ul>
-                                <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                                <li><a href="{{route('view-keranjang')}}"><i class="fa fa-shopping-bag"></i> <span>{{$jumlah}}</span></a></li>
+                                <li><a href="{{route('view-keranjang')}}" data-toggle="tooltip" data-placement="right" title="Keranjang Saya"><i class="fa fa-shopping-bag"></i> <span>{{$jumlah}}</span></a></li>
                             </ul>
                         </div>
                     @endauth

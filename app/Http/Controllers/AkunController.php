@@ -19,7 +19,7 @@ class AkunController extends Controller
         $data['akun'] = DB::table('members')->where('id',$id)->first();
         $data['provinces'] = Province::pluck('name','province_id');
         // dd($data);
-        return view ('Frontend.Akun.akun',$data);
+        return view ('frontend.akun.akun',$data);
     }
 
     public function getcities($id){

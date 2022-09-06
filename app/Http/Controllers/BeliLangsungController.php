@@ -20,7 +20,7 @@ class BeliLangsungController extends Controller
         ->where('id',$id)->get();
         $data['jumlah']=DB::table('keranjangs')->where('id',session('id'))->count();
         $data['member']=DB::table('members')->where('id',$id)->first();
-        return view ('Frontend.Transaksi.view_belilangsung',$data);
+        return view ('frontend.transaksi.view_belilangsung',$data);
     }
 
     public function belilangsung(Request $r){
